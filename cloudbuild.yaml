@@ -1,12 +1,12 @@
 steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/github.com/PRAVALER/zip_api', '.']
+  args: ['build', '-t', 'github.com/PRAVALER/zip_api', '.']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/github.com/PRAVALER/zip_api']
   # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta', 'run', 'deploy', 'zip_api', '--image', 'gcr.io/$PROJECT_ID/github.com/{GITHUB_USERNAME}/zip_api', '--region', 'us-central1', '--allow-unauthenticated']
+  args: ['beta', 'run', 'deploy', 'zip_api', '--image', 'gcr.io/$PROJECT_ID/github.com/PRAVALER/zip_api', '--region', 'us-central1', '--allow-unauthenticated']
 images:
 - gcr.io/$PROJECT_ID/github.com/PRAVALER/zip_api
