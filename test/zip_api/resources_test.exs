@@ -6,9 +6,30 @@ defmodule ZipApi.ResourcesTest do
   describe "zips" do
     alias ZipApi.Resources.Zip
 
-    @valid_attrs %{address: "some address", city: "some city", district: "some district", state: "some state", state_name: "some state_name", zip: "some zip"}
-    @update_attrs %{address: "some updated address", city: "some updated city", district: "some updated district", state: "some updated state", state_name: "some updated state_name", zip: "some updated zip"}
-    @invalid_attrs %{address: nil, city: nil, district: nil, state: nil, state_name: nil, zip: nil}
+    @valid_attrs %{
+      address: "some address",
+      city: "some city",
+      district: "some district",
+      state: "some state",
+      state_name: "some state_name",
+      zip: "some zip"
+    }
+    @update_attrs %{
+      address: "some updated address",
+      city: "some updated city",
+      district: "some updated district",
+      state: "some updated state",
+      state_name: "some updated state_name",
+      zip: "some updated zip"
+    }
+    @invalid_attrs %{
+      address: nil,
+      city: nil,
+      district: nil,
+      state: nil,
+      state_name: nil,
+      zip: nil
+    }
 
     def zip_fixture(attrs \\ %{}) do
       {:ok, zip} =
@@ -26,7 +47,7 @@ defmodule ZipApi.ResourcesTest do
 
     test "get_zip!/1 returns the zip with given id" do
       zip = zip_fixture()
-      assert Resources.get_zip!(zip.id) == zip
+      assert Resources.get_zip!(zip.zip) == zip
     end
 
     test "create_zip/1 with valid data creates a zip" do
@@ -57,13 +78,13 @@ defmodule ZipApi.ResourcesTest do
     test "update_zip/2 with invalid data returns error changeset" do
       zip = zip_fixture()
       assert {:error, %Ecto.Changeset{}} = Resources.update_zip(zip, @invalid_attrs)
-      assert zip == Resources.get_zip!(zip.id)
+      assert zip == Resources.get_zip!(zip.zip)
     end
 
     test "delete_zip/1 deletes the zip" do
       zip = zip_fixture()
       assert {:ok, %Zip{}} = Resources.delete_zip(zip)
-      assert_raise Ecto.NoResultsError, fn -> Resources.get_zip!(zip.id) end
+      assert_raise Ecto.NoResultsError, fn -> Resources.get_zip!(zip.zip) end
     end
 
     test "change_zip/1 returns a zip changeset" do

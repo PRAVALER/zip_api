@@ -35,7 +35,7 @@ defmodule ZipApi.Resources do
       ** (Ecto.NoResultsError)
 
   """
-  def get_zip!(id), do: Repo.get!(Zip, id)
+  def get_zip!(zip), do: Repo.get!(Zip, zip)
 
   @doc """
   Creates a zip.

@@ -6,19 +6,19 @@ defmodule ZipApiWeb.ZipController do
 
   action_fallback(ZipApiWeb.FallbackController)
 
-  def index(conn, _params) do
-    zips = Resources.list_zips()
-    render(conn, "index.json", zips: zips)
-  end
-
-  # def create(conn, %{"zip" => zip_params}) do
-  #   with {:ok, %Zip{} = zip} <- Resources.create_zip(zip_params) do
-  #     conn
-  #     |> put_status(:created)
-  #     |> put_resp_header("location", Routes.zip_path(conn, :show, zip))
-  #     |> render("show.json", zip: zip)
-  #   end
+  # def index(conn, _params) do
+  #   zips = Resources.list_zips()
+  #   render(conn, "index.json", zips: zips)
   # end
+
+  def create(conn, %{"zip" => zip_params}) do
+    with {:ok, %Zip{} = zip} <- Resources.create_zip(zip_params) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", Routes.zip_path(conn, :show, zip))
+      |> render("show.json", zip: zip)
+    end
+  end
 
   def show(conn, %{"zip" => zip_param}) do
     cleaned_zip = String.replace(zip_param, ~r/[^0-9]/, "")
