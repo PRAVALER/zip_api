@@ -7,7 +7,9 @@ use Mix.Config
 # Run `mix help test` for more information.
 config :zip_api, ZipApi.Repo,
   username: "root",
-  password: "",
+  password: "qc0n457ace1",
+  hostname: "localhost",
+  port: 9999,
   database: "zip_api_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
