@@ -34,7 +34,7 @@ steps:
       - "--platform"
       - "gke"
       - "--cluster"
-      - "prv-production1"
+      - "prv-production-1-internal"
       - "--cluster-location"
       - "us-east1"
       - "--namespace"
