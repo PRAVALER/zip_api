@@ -1,12 +1,75 @@
 steps:
-  # build the container image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'github.com/PRAVALER/zip_api', '.']
-  # push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/github.com/PRAVALER/zip_api']
-  # Deploy container image to Cloud Run
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta', 'run', 'deploy', 'zip_api', '--image', 'gcr.io/$PROJECT_ID/github.com/PRAVALER/zip_api', '--region', 'us-central1', '--allow-unauthenticated']
-images:
-- gcr.io/$PROJECT_ID/github.com/PRAVALER/zip_api
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "Getting secret for new relic"
+    entrypoint: "bash"
+    args: [ '-c', 'gcloud secrets versions access latest --secret=newrelic_token > newrelic_token.ini' ]
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Build"
+    args:
+      - "build"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA"
+      - "--build-arg"
+      - "ENVIRONMENT=prod"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Push"
+    args:
+      - "push"
+      - "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA"
+
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "Deploy"
+    args:
+      - "run"
+      - "deploy"
+      - "$REPO_NAME"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA"
+      - "--platform"
+      - "gke"
+      - "--cluster"
+      - "prv-production1"
+      - "--cluster-location"
+      - "us-east1"
+      - "--namespace"
+      - "prv-sistemasinternos"
+      - "--port"
+      - "4000"
+      # - "--update-secrets"
+      # - "ENV1=xpto"
+
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "Sending deployment info to new relic"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        curl -X POST https://api.newrelic.com/v2/applications/$_NEWRELIC_PROJECT_ID/deployments.json \
+        -H "X-Api-Key:$_NEWRELIC_TOKEN" \
+        -H "Content-Type: application/json" \
+        -d '{
+                "deployment": {
+                "revision": "$REVISION_ID",
+                "changelog": "https://github.com/PRAVALER/$REPO_NAME/commit/$COMMIT_SHA"
+                }
+            }'
+  # - name: "gcr.io/cloud-builders/gcloud"
+  #   id: "Sending deploy alert"
+  #   entrypoint: "bash"
+  #   args:
+  #     - "-c"
+  #     - |
+  #       apt update && apt install -y jq
+  #       echo "{\"squad\": \"prv-sistemasinternos\", \
+  #       \"application\": \"$REPO_NAME\", \
+  #       \"commitmessage\": $(curl -s -H "Authorization: token $_TOKEN" -H "Accept: application/vnd.github.v3.raw" -L  https://api.github.com/repos/PRAVALER/$REPO_NAME/commits/master | jq '.commit .message'), \
+  #       \"leader\": \"Bruno Louredo\", \
+  #       \"hashcommit\": \"https://github.com/PRAVALER/$REPO_NAME/pull/$COMMIT_SHA\", \
+  #       \"gitrepo\": \"https://github.com/PRAVALER/$REPO_NAME/\", \
+  #       \"passphrase\": \"$_DEPLOY_ALERT_PASS\", \
+  #       \"unavailability\": \"0\"}" > /workspace/api_payload.txt
+  #       curl -X POST http://deploy-alerts.pravaler.com.br/publish \
+  #       -H 'content-type: application/json' \
+  #       -d @/workspace/api_payload.txt
