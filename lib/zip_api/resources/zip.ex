@@ -1,4 +1,6 @@
 defmodule ZipApi.Resources.Zip do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
