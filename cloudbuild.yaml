@@ -3,6 +3,10 @@ steps:
     id: "Getting secret for new relic"
     entrypoint: "bash"
     args: [ '-c', 'gcloud secrets versions access latest --secret=newrelic_token > newrelic_token.ini' ]
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "Getting prod.secret.exs"
+    entrypoint: "bash"
+    args: [ '-c', 'gcloud secrets versions access latest --secret=zip_api_prod_secret > prod.secret.exs' ]
   - name: "gcr.io/cloud-builders/docker"
     id: "Build"
     args:
