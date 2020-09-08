@@ -8,11 +8,6 @@ ENV MIX_ENV=prod \
 COPY mix.exs mix.lock ./
 RUN "mix do deps.get, deps.compile"
 
-# Same with npm deps
-COPY assets/package.json assets/
-WORKDIR /assets
-RUN npm install
-
 WORKDIR /
 
 COPY . .
