@@ -20,9 +20,7 @@ RUN cat prod.secret.exs
 RUN echo "copying secret" && cp prod.secret.exs config/prod.secret.exs
 
 # Run frontend build, compile, and digest assets
-RUN cd assets/ && \
-    npm run deploy && \
-    cd - && \
-    mix do compile, phx.digest
+# RUN cd assets/ && npm run deploy
+# RUN mix do compile, phx.digest
 
 CMD ["mix", "phx.server"]
