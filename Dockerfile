@@ -15,7 +15,7 @@ RUN cd assets && \
 
 ADD . .
 
-RUN if [ "$ENVIRONMENT" = "prod" ]; then \ mv prod.secret.exs config/prod.secret.exs ; fi
+RUN if [ "$ENVIRONMENT" = "prod" ]; then \ echo "copying secret" && mv prod.secret.exs /opt/app/config/prod.secret.exs ; fi
 
 # Run frontend build, compile, and digest assets
 RUN cd assets/ && \
