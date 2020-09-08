@@ -28,7 +28,7 @@ steps:
     args:
       - "run"
       - "deploy"
-      - "$REPO_NAME"
+      - "zip-api"
       - "--image"
       - "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA"
       - "--platform"
