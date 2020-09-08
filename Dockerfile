@@ -1,19 +1,21 @@
-FROM bitwalker/alpine-elixir-phoenix:latest
+FROM bitwalker/alpine-elixir-phoenix:1.10.3
 
 # Set mix env and ports
 ENV MIX_ENV=prod \
     PORT=$PORT
 
 # Cache elixir deps
-ADD mix.exs mix.lock ./
-RUN mix do deps.get, deps.compile
+COPY mix.exs mix.lock ./
+RUN "mix do deps.get, deps.compile"
 
 # Same with npm deps
-ADD assets/package.json assets/
-RUN cd assets && \
-    npm install
+COPY assets/package.json assets/
+WORKDIR /assets
+RUN npm install
 
-ADD . .
+WORKDIR /
+
+COPY . .
 
 RUN echo "Environment: $ENVIRONMENT"
 RUN cat prod.secret.exs
