@@ -29,10 +29,12 @@ defmodule ZipApiWeb.ChannelCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ZipApi.Repo)
+    alias Ecto.Adapters.SQL.Sandbox
+
+    :ok = Sandbox.checkout(ZipApi.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(ZipApi.Repo, {:shared, self()})
+      Sandbox.mode(ZipApi.Repo, {:shared, self()})
     end
 
     :ok
