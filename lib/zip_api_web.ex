@@ -22,7 +22,6 @@ defmodule ZipApiWeb do
       use Phoenix.Controller, namespace: ZipApiWeb
 
       import Plug.Conn
-      import ZipApiWeb.Gettext
       alias ZipApiWeb.Router.Helpers, as: Routes
     end
   end
@@ -54,7 +53,6 @@ defmodule ZipApiWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ZipApiWeb.Gettext
     end
   end
 
@@ -66,7 +64,6 @@ defmodule ZipApiWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import ZipApiWeb.Gettext
       alias ZipApiWeb.Router.Helpers, as: Routes
     end
   end
