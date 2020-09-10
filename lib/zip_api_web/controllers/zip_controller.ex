@@ -22,8 +22,14 @@ defmodule ZipApiWeb.ZipController do
 
   def show(conn, %{"zip" => zip_param}) do
     cleaned_zip = String.replace(zip_param, ~r/[^0-9]/, "")
-    zip = Resources.get_zip!(cleaned_zip)
-    render(conn, "show.json", zip: zip)
+
+    try do
+      zip = Resources.get_zip!(cleaned_zip)
+      render(conn, "show.json", zip: zip)
+    rescue
+      Ecto.NoResultsError ->
+        {:error, :not_found}
+    end
   end
 
   # def update(conn, %{"id" => id, "zip" => zip_params}) do

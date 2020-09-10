@@ -42,6 +42,11 @@ defmodule ZipApiWeb.ZipControllerTest do
 
       assert "12345876" = json_response(conn, 200)["zip"]
     end
+
+    test "show 404 error when zip is not found", %{conn: conn} do
+      conn = get(conn, Routes.zip_path(conn, :show, "8888"))
+      assert "Not Found" = json_response(conn, 404)
+    end
   end
 
   defp create_zip(_) do

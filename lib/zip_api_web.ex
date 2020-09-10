@@ -66,7 +66,6 @@ defmodule ZipApiWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import ZipApiWeb.ErrorHelpers
       import ZipApiWeb.Gettext
       alias ZipApiWeb.Router.Helpers, as: Routes
     end
