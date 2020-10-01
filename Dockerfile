@@ -6,14 +6,13 @@ ENV MIX_ENV=prod \
 
 # Cache elixir deps
 COPY mix.exs mix.lock ./
-RUN "mix do deps.get, deps.compile"
+RUN mix do deps.get, deps.compile
 
 WORKDIR /
 
 COPY . .
 
 RUN echo "Environment: $ENVIRONMENT"
-RUN cat prod.secret.exs
 RUN echo "copying secret" && cp prod.secret.exs config/prod.secret.exs
 
 # Run frontend build, compile, and digest assets
