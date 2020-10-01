@@ -2,7 +2,7 @@ FROM bitwalker/alpine-elixir-phoenix:1.10.3
 
 # Set mix env and ports
 ENV MIX_ENV=prod \
-    PORT=$PORT
+    PORT=4000
 
 # Cache elixir deps
 
