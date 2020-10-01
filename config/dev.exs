@@ -58,6 +58,10 @@ config :zip_api, ZipApiWeb.Endpoint,
     ]
   ]
 
+config :new_relic_agent,
+  app_name: "Zip API",
+  license_key: "KEY_HERE"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
