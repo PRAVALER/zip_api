@@ -49,7 +49,7 @@ defmodule ZipApi.Resources do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_zip(attrs \\ %{}) do
+  def create_zip(attrs) do
     %Zip{}
     |> Zip.changeset(attrs)
     |> Repo.insert()

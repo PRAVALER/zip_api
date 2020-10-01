@@ -10,7 +10,18 @@ defmodule ZipApi.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [
+        ignore_modules: [
+          ZipApiWeb,
+          ZipApi.Repo,
+          ZipApi.DataCase,
+          ZipApi.Application,
+          ZipApiWeb.ZipView,
+          ZipApiWeb.ErrorView,
+          ZipApiWeb.FallbackController
+        ]
+      ]
     ]
   end
 
