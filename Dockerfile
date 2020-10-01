@@ -5,12 +5,12 @@ ENV MIX_ENV=prod \
     PORT=$PORT
 
 # Cache elixir deps
-COPY mix.exs mix.lock ./
-RUN mix do deps.get, deps.compile
 
 WORKDIR /
 
 COPY . .
+
+RUN mix do deps.get, deps.compile
 
 RUN echo "Environment: $ENVIRONMENT"
 RUN echo "copying secret" && cp prod.secret.exs config/prod.secret.exs
