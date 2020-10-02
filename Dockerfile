@@ -12,7 +12,8 @@ COPY . .
 
 RUN echo "Environment: $ENVIRONMENT"
 RUN echo "copying secret" && cp prod.secret.exs config/prod.secret.exs
-RUN mix do deps.get, deps.compile
+RUN mix deps.get
+RUN mix deps.compile
 
 # Run frontend build, compile, and digest assets
 # RUN cd assets/ && npm run deploy
