@@ -1,4 +1,8 @@
 steps:
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "Getting stag.secret.exs"
+    entrypoint: "bash"
+    args: [ '-c', 'gcloud secrets versions access latest --secret=zip_api_stag_secret > stag.secret.exs' ]
   - name: "gcr.io/cloud-builders/docker"
     id: "Build"
     args:
@@ -6,7 +10,7 @@ steps:
       - "-t"
       - "gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA"
       - "--build-arg"
-      - "ENVIRONMENT=prod"
+      - "ENVIRONMENT=stag"
       - "."
 
   - name: "gcr.io/cloud-builders/docker"
