@@ -1,5 +1,6 @@
 # ZipApi
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ccd3c620079a454780fc052d553c9ae4)](https://app.codacy.com/gh/PRAVALER/zip_api?utm_source=github.com&utm_medium=referral&utm_content=PRAVALER/zip_api&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ccd3c620079a454780fc052d553c9ae4)](https://app.codacy.com/gh/PRAVALER/zip_api?utm_source=github.com&utm_medium=referral&utm_content=PRAVALER/zip_api&utm_campaign=Badge_Grade_Dashboard)
 
 To start your Phoenix server:
