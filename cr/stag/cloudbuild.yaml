@@ -35,5 +35,7 @@ steps:
       - "us-east1-b"
       - "--namespace"
       - "prv-sistemasinternos"
+      - "--min-instances"
+      - "1"
       - "--port"
       - "4000"
