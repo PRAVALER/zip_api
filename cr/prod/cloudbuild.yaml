@@ -39,6 +39,8 @@ steps:
       - "us-east1"
       - "--namespace"
       - "prv-sistemasinternos"
+      - "--min-instances"
+      - "1"
       - "--port"
       - "4000"
       # - "--update-secrets"
