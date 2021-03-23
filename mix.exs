@@ -20,7 +20,9 @@ defmodule ZipApi.MixProject do
           ZipApiWeb.ZipView,
           ZipApiWeb.ErrorView,
           ZipApiWeb.FallbackController
-        ]
+        ],
+        tool: LcovEx,
+        output: "cover"
       ]
     ]
   end
@@ -57,7 +59,9 @@ defmodule ZipApi.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:new_relic_agent, "~> 1.0"},
-      {:new_relic_phoenix, "~> 0.1"}
+      {:new_relic_phoenix, "~> 0.1"},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
+      {:lcov_ex, "~> 0.1", only: :test, runtime: false}
     ]
   end
 
