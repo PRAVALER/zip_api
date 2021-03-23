@@ -21,6 +21,16 @@ defmodule ZipApi.MixProject do
           ZipApiWeb.ErrorView,
           ZipApiWeb.FallbackController
         ],
+        ignore_paths: [
+          "test/",
+          "lib/zip_api/repo.ex",
+          "lib/zip_api/application.ex",
+          "lib/zip_api_web/views/zip_view.ex",
+          "lib/zip_api_web/views/error_view.ex",
+          "lib/zip_api_web/controllers/fallback_controller.ex",
+          "lib/zip_api_web.ex",
+          "lib/zip_api.ex",
+      	],
         tool: LcovEx,
         output: "cover"
       ]
