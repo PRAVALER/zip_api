@@ -1,3 +1,8 @@
+substitutions:
+  _GCP_NAMESPACE: prv-sistemasinternos
+  _GCP_LOCATION: us-east1
+  _GCP_CLUSTER: prv-production-internal
+
 steps:
   - name: "gcr.io/cloud-builders/gcloud"
     id: "Getting secret for new relic"
@@ -34,11 +39,11 @@ steps:
       - "--platform"
       - "gke"
       - "--cluster"
-      - "prv-production-1-internal"
+      - "${_GCP_CLUSTER}"
       - "--cluster-location"
-      - "us-east1"
+      - "${_GCP_LOCATION}"
       - "--namespace"
-      - "prv-sistemasinternos"
+      - "${_GCP_NAMESPACE}"
       - "--min-instances"
       - "1"
       - "--port"
